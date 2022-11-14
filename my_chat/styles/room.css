@@ -169,7 +169,7 @@
   width: calc(100% - 40.7rem);
   position: fixed;
   left: 15.7rem;
-  top: clac(100vh - 72px);
+  /* top: calc(100vh - 72px); */
   overflow-y: auto;
   height: 100%;
 }

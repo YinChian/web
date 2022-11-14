@@ -15,6 +15,9 @@ form.addEventListener("submit", (e) => {
         inviteCode = String(Math.floor(Math.random() * 10000))
     ]
 
+    let hostChb=e.target.Host_chb.checked;
+    sessionStorage.setItem('host', hostChb)
+
     window.location = `room.html?room=${inviteCode}`;
 
 })
