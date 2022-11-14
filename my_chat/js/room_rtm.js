@@ -69,11 +69,85 @@ let sendMessage = async (e) => {
     e.preventDefault()
 
     let message = e.target.message.value
-    channel.sendMessage({ text: JSON.stringify({ "type": "chat", "message": message, "displayName": displayName }) })
+    if(message[0]=='!')
+    {
+        var cmd="";
+        for(let space=1;space<10;space++)
+        {
+            if(message[space]==" " | message[space]==undefined)
+            {
+                break;
+            }
+            else
+            {
+                cmd=cmd+message[space];
+            }
+        }
+        bot_cmd(cmd,0);
+    }
+    else if(message!="")
+    {
+        message=message_filter(message);
 
-    addMessageToDom(displayName, message)
+        channel.sendMessage({ text: JSON.stringify({ "type": "chat", "message": message, "displayName": displayName }) })
+
+        addMessageToDom(displayName, message)
+    }
+    
 
     e.target.reset()
+}
+
+var filter=['fuck','shit','幹你娘','幹','靠杯']
+function message_filter(message)
+{
+  for(let x=0;x<filter.length;x++)
+  {
+    var change="";
+    for(let y=0;y<filter[x].length;y++)
+    {
+      change=change+"*"
+    }
+    message=message.replaceAll(filter[x],change)
+  }
+
+  return message
+}
+
+function bot_cmd(cmd,from){
+    if(cmd=="time")
+    {
+        // var now=new Date();
+        // var diff = now.getTime() - start_time;
+        // var hours = parseInt(diff / 1000 / 60 / 60);
+        // diff -= hours * 1000 * 60 * 60;
+        // var minutes = parseInt(diff / 1000 / 60);
+        // diff -= minutes * 1000 * 60;
+        // var seconds = parseInt(diff / 1000);
+        // var resultTime = hours + " hr " + minutes + " min " + seconds + " sec ";
+
+        // trans_message(("streaming has been start for "+resultTime));
+    }
+    else if(cmd=="help")
+    {
+        if(from==0)
+            addBotMessageToDom("you can use \"time\",\"info\"");
+        else
+            addBotMessageToDom_sub("you can use \"time\",\"info\"");
+    }
+    else if(cmd=="info")
+    {
+        if(from==0)
+            addBotMessageToDom("this is our streaming platform \n create by 王柏穎/簡應謙/李紹瑜");
+        else
+            addBotMessageToDom_sub("this is our streaming platform \n create by 王柏穎/簡應謙/李紹瑜");
+    }
+    else
+    {
+        addBotMessageToDom("unknown command");
+        
+    }
+
 }
 
 let addMessageToDom = (name, message) => {
