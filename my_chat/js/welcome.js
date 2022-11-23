@@ -1,6 +1,6 @@
-let form = document.getElementById('lobby__form')
+let form = document.getElementById('welcome__form')
 
-let displaName = sessionStorage.getItem('display_name')
+let displaName = sessionStorage.getItem('________')
 if (displaName) {
     form.name.value = displaName
 }
@@ -8,7 +8,7 @@ if (displaName) {
 form.addEventListener("submit", (e) => {
     e.preventDefault()
 
-    sessionStorage.setItem('display_name', e.target.name.value)
+    sessionStorage.setItem('display', e.target.name.value)
 
     let inviteCode = e.target.room.value
     if (!inviteCode) [
@@ -18,7 +18,7 @@ form.addEventListener("submit", (e) => {
     let hostChb=e.target.Host_chb.checked;
     sessionStorage.setItem('host', hostChb)
 
-    window.location = `room.php?room=${inviteCode}`;
+    window.location = `room.html?room=${inviteCode}`;
 
 })
 

@@ -52,7 +52,7 @@ let expandVideoFrame = (e) => {
       videoFrames[i].style.width = '100px';
     }
   }
-
+  
 }
 
 for (let i = 0; i < videoFrames.length; i++) {
@@ -60,17 +60,33 @@ for (let i = 0; i < videoFrames.length; i++) {
 }
 
 let hideDisplayFrame = () => {
-  userIdInDisplayFrame = null;
-  displayFrame.style.display = null;
+  userIdInDisplayFrame=null;
+  displayFrame.style.display=null;
 
   let child = displayFrame.children[0];
   document.getElementById('streams__container').appendChild(child)
 
-  for (let i = 0; i < videoFrames.length; i++) {
-    videoFrames[i].style.height = "300px";
-    videoFrames[i].style.width = "300px";
+  for(let i=0;i<videoFrames.length;i++){
+    videoFrames[i].style.height="300px";
+    videoFrames[i].style.width="300px";
   }
 }
 
-displayFrame.addEventListener("click", hideDisplayFrame)
+displayFrame.addEventListener("click",hideDisplayFrame)
 
+// Code for the button!
+var x = document.getElementById("play");
+var y = document.getElementById("play-box");
+
+x.addEventListener("click", function () {
+  y.classList.remove("paused-box");
+  y.classList.add("play-box");
+  y.style.animationPlayState = 'running';
+  
+});
+y.addEventListener("animationend", function () {  
+  // y.style.animationPlayState = 'paused';
+  y.classList.remove("play-box");
+  y.classList.add("paused-box");
+  
+})
